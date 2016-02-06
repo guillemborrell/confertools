@@ -1,22 +1,32 @@
+function padDigits(number, digits) {
+    return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
+}
+
 function startTimer(duration, display) {
-	var timer = duration, minutes, seconds;
-	setInterval(function () {
-            minutes = parseInt(timer / 60, 10);
-            seconds = parseInt(timer % 60, 10);
+	var timer = duration;
+    var minutes = parseInt(timer.minute);
+    var seconds = parseInt(timer.second);
 
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-            seconds = seconds < 10 ? "0" + seconds : seconds;
+	setInterval(
+	    function () {
+	        seconds = seconds - 1;
+	        if (seconds < 0) {
+	            minutes = minutes - 1;
+	            seconds = 59;
+	        }
+	        if (seconds == 0){
+	            $("body").css("background-color", "red")
+	        }
+            display.text(padDigits(minutes,2) + ":" + padDigits(seconds, 2));
+        }
+	, 1000);
+}
 
-            display.text(minutes + ":" + seconds);
-
-            if (--timer < 0) {
-		timer = duration;
-            }
-	}, 1000);
+function initiateTimer(time) {
+    var display = $('#time');
+    startTimer(JSON.parse(time), display);
 }
 
 jQuery(function ($) {
-	var fiveMinutes = 60 * 5;
-	var display = $('#time');
-	startTimer(fiveMinutes, display);
+	$.ajax({url: "time/utc", success: initiateTimer })
 });
