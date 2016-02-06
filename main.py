@@ -6,9 +6,9 @@ app = Flask(__name__)
 def hello():
     return render_template('main.html')
 
-@app.route('/timer.js')
-def scripts():
-    with open(os.path.join(os.curdir, 'static', 'timer.js')) as f:
+@app.route('/<folder>/<file>')
+def serve_static(folder, file):
+    with open(os.path.join(os.curdir, 'static', folder, file)) as f:
         return f.read()
 
 if __name__ == '__main__':
