@@ -4,3 +4,4 @@ markupsafe
 itsdangerous.py
 werkzeug
 .idea
+*.pyc
