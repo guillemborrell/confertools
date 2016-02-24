@@ -4,6 +4,11 @@
     <script src="js/clock.js"></script>
   </head>
     <body>
-      <p>UTC time is: <span id="time"></span></p>
+      {% if not user %}
+      <p><a href="{{ login }}">Login</a></p>
+      {% else %}
+      <p>Welcome {{ user.nickname() }}</p>
+      {% endif %}
+      <p>Europe/Madrid time is: <span id="time"></span></p>
   </body>
 </html>

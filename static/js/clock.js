@@ -36,5 +36,5 @@ function initiateTimer(time) {
 }
 
 jQuery(function ($) {
-	$.ajax({url: "time/clock", success: initiateTimer })
+	$.ajax({url: "time/Europe/Madrid", success: initiateTimer })
 });
