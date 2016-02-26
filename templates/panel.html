@@ -2,5 +2,15 @@
 <body>
 <p><a href="{{ logout }}">Logout</a></p>
 <p>This is the control panel for user {{ user.nickname() }}</p>
+
+<p>Your events</p>
+<ul>
+{% for event in events %}
+<li>{{ event.name }}</li>
+{% endfor %}
+</ul>
+<p><a href="/panel/new_event">Create event</a></p>
+<p><a href="/panel/upload_event">Upload event file</a></p>
+
 </body>
 </html>

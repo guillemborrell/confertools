@@ -1,0 +1,26 @@
+{
+  "name": "Test Event",
+  "date_from": "2016-02-26",
+  "date_to": "2016-02-29",
+  "timezone": "Europe/Madrid",
+  "description": "A test event",
+  "place": "Somewhere",
+  "tracks": [
+    {
+      "name": "A track",
+      "room": "Room 01",
+      "talks": [
+        {
+          "title": "A test talk 1",
+          "authors": ["Me author", "You author"],
+          "start" : "2016-02-26 12:30",
+          "end" : "2016-02-26 12:45"
+        },
+        {
+          "title": "A test talk 2",
+          "authors": ["Me author", "You author"],
+          "start" : "2016-02-26 12:50",
+          "end" : "2016-02-26 13:20"
+        }
+      ]}
+ ]}

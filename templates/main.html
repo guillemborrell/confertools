@@ -7,7 +7,7 @@
       {% if not user %}
       <p><a href="{{ login }}">Login</a></p>
       {% else %}
-      <p>Welcome {{ user.nickname() }}</p>
+      <p>Welcome {{ user.nickname() }}. <a href="{{ logout }}">Logout</a></p>
       {% endif %}
       <p>Europe/Madrid time is: <span id="time"></span></p>
   </body>

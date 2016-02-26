@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload event.</title>
+</head>
+<body>
+<h1>Create a new event.</h1>
+<form action="/panel/upload_event" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="event_file">Event name</label>
+        <input name="event_file" type="file" class="form-control" id="event_file" placeholder="Event JSON file">
+    </div>
+    <button type="submit" class="btn btn-default">Submit</button>
+</form>
+</body>
+</html>
