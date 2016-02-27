@@ -110,6 +110,12 @@ def public_talk(talk_key):
     return render_template('public_talk.html', talk=talk_)
 
 
+@app.route('/timing/<track_key>')
+def timing(track_key):
+    track_ = ndb.Key(urlsafe=track_key).get()
+    return render_template('timing.html', talk=track_)
+
+
 @app.route('/panel/new_event', methods=('GET', 'POST'))
 def new_event():
     user = users.get_current_user()

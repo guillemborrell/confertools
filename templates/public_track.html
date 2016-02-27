@@ -6,9 +6,12 @@
 </head>
 <body>
 <h1>{{ track.name }}</h1>
+<p><a href="/timing/{{ track.key.urlsafe() }}">Timing</a></p>
 <ul>
     {% for talk in talks %}
-    <li><a href="/talk/{{ talk.key.urlsafe() }}">{{ talk.title }}</a></li>
+    <li>
+        <a href="/talk/{{ talk.key.urlsafe() }}">{{ talk.title }}</a>
+    </li>
     {% endfor %}
 </ul>
 </body>

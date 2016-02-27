@@ -28,5 +28,5 @@ function initiateTimer(time) {
 }
 
 jQuery(function ($) {
-	$.ajax({url: "time/utc", success: initiateTimer })
+	$.ajax({url: "/time/utc", success: initiateTimer })
 });
