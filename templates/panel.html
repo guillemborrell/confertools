@@ -6,7 +6,7 @@
 <p>Your events</p>
 <ul>
 {% for event in events %}
-<li>{{ event.name }}</li>
+<li><a href="/panel/event/{{ event.key.urlsafe() }}">{{ event.name }}</a></li>
 {% endfor %}
 </ul>
 <p><a href="/panel/new_event">Create event</a></p>

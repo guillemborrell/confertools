@@ -5,5 +5,8 @@ threadsafe: true
 application: confertools
 
 handlers:
+- url: /js
+  static_dir: static/js
+
 - url: /.*
   script: main.app

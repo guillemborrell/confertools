@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your talk</title>
+</head>
+<body>
+<h1>{{ talk.title }}</h1>
+<p>In track <a href="/panel/track/{{ talk.track.urlsafe() }}">
+    {{ talk.track.get().name }}</a>, in event
+    <a href="/panel/event/{{ talk.track.get().event.urlsafe() }}">
+    {{ talk.track.get().event.get().name }}</a></p>
+<ul>
+    {% for author in talk.authors %}
+    <li>{{ author }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

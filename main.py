@@ -1,82 +1,32 @@
-import os
 import json
+import pytz
 from flask import Flask, render_template, request, redirect
 from datetime import datetime, timedelta, date
 from datetools import date_to_dict
 from google.appengine.api import users
-import pytz
+from google.appengine.ext import ndb
 from models import Event, Track, Talk
+from tools import process_event
 
 app = Flask(__name__)
-
-
-def process_event(event_file, user):
-    event_data = json.loads(event_file)
-    event_name = event_data['name']
-    event_place = event_data['place']
-    event_date_from = datetime.strptime(event_data['date_from'], '%Y-%m-%d').date()
-    event_date_to = datetime.strptime(event_data['date_to'], '%Y-%m-%d').date()
-    event_timezone = event_data['timezone']
-    if 'description' in event_data:
-        event_description = event_data['description']
-    else:
-        event_description = ''
-
-    ev = Event(owner=user,
-               name=event_name,
-               place=event_place,
-               date_from=event_date_from,
-               date_to=event_date_to,
-               timezone=event_timezone,
-               description=event_description
-               )
-    ev.put()
-
-    for track in event_data['tracks']:
-        track_name = track['name']
-        track_room = track['room']
-        tr = Track(owner=user,
-                   name=track_name,
-                   room=track_room,
-                   event=ev.key)
-        tr.put()
-
-        for talk in track['talks']:
-            talk_title = talk['title']
-            talk_authors = talk['authors']
-            talk_start = datetime.strptime(talk['start'], '%Y-%m-%d %H:%M')
-            talk_end = datetime.strptime(talk['end'], '%Y-%m-%d %H:%M')
-            if 'tags' in talk:
-                talk_tags = talk['tags']
-            else:
-                talk_tags = []
-
-            if 'abstract' in talk:
-                talk_abstract = talk['abstract']
-            else:
-                talk_abstract = ''
-
-            tk = Talk(owner=user,
-                      track=tr.key,
-                      title=talk_title,
-                      authors=talk_authors,
-                      start=talk_start,
-                      end=talk_end,
-                      tags=talk_tags,
-                      abstract=talk_abstract
-                      )
-
-            tk.put()
 
 
 # All routes go to this file.
 @app.route('/')
 def hello():
     user = users.get_current_user()
+    events = Event.last_events()
     if user:
-        return render_template('main.html', user=user, logout=users.create_logout_url('/'))
+        return render_template('main.html',
+                               user=user,
+                               events=events,
+                               logout=users.create_logout_url('/')
+                               )
     else:
-        return render_template('main.html', login=users.create_login_url('/panel'))
+        return render_template('main.html',
+                               events=events,
+                               login=users.create_login_url('/panel')
+                               )
 
 
 @app.route('/panel')
@@ -84,9 +34,80 @@ def control_panel():
     user = users.get_current_user()
     if user:
         events = Event.user_events(user)
-        return render_template('panel.html', user=user, logout=users.create_logout_url('/'), events=events)
+        return render_template('panel.html',
+                               user=user,
+                               logout=users.create_logout_url('/'),
+                               events=events)
     else:
         return render_template('page_not_found.html'), 404
+
+
+@app.route('/panel/event/<event_key>')
+def event(event_key):
+    user = users.get_current_user()
+    if user:
+        event_ = ndb.Key(urlsafe=event_key).get()
+        return render_template('event.html',
+                               event=event_,
+                               tracks=Track.in_event(event_key),
+                               user=user,
+                               logout=users.create_logout_url('/')
+                               )
+    else:
+        return render_template('page_not_found.html'), 404
+
+
+@app.route('/event/<event_key>')
+def public_event(event_key):
+    event_ = ndb.Key(urlsafe=event_key).get()
+    return render_template('public_event.html',
+                           event=event_,
+                           tracks=Track.in_event(event_key)
+                           )
+
+
+@app.route('/panel/track/<track_key>')
+def track(track_key):
+    user = users.get_current_user()
+    if user:
+        track_ = ndb.Key(urlsafe=track_key).get()
+        return render_template('track.html',
+                               track=track_,
+                               talks=Talk.in_track(track_key),
+                               user=user,
+                               logout=users.create_logout_url('/')
+                               )
+    else:
+        return render_template('page_not_found.html'), 404
+
+
+@app.route('/track/<track_key>')
+def public_track(track_key):
+    track_ = ndb.Key(urlsafe=track_key).get()
+    return render_template('public_track.html',
+                           track=track_,
+                           talks=Talk.in_track(track_key)
+                           )
+
+
+@app.route('/panel/talk/<talk_key>')
+def talk(talk_key):
+    user = users.get_current_user()
+    if user:
+        talk_ = ndb.Key(urlsafe=talk_key).get()
+        return render_template('talk.html',
+                               talk=talk_,
+                               user=user,
+                               logout=users.create_logout_url('/')
+                               )
+    else:
+        return render_template('page_not_found.htm'), 404
+
+
+@app.route('/talk/<talk_key>')
+def public_talk(talk_key):
+    talk_ = ndb.Key(urlsafe=talk_key).get()
+    return render_template('public_talk.html', talk=talk_)
 
 
 @app.route('/panel/new_event', methods=('GET', 'POST'))
@@ -150,11 +171,6 @@ def schedule(schedule_id):
     ]
     return json.dumps(test_schedule)
 
-
-@app.route('/<folder>/<file>')
-def serve_static(folder, file):
-    with open(os.path.join(os.curdir, 'static', folder, file)) as f:
-        return f.read()
 
 if __name__ == '__main__':
     app.debug = True

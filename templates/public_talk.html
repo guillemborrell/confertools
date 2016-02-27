@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Talk</title>
+</head>
+<body>
+<h1>{{ talk.title }}</h1>
+<ul>
+    {% for author in talk.authors %}
+    <li>{{ author }}</li>
+    {% endfor %}
+</ul>
+</body>
+</html>

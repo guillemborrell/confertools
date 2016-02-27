@@ -15,3 +15,9 @@ indexes:
   - name: owner
   - name: created
     direction: desc
+
+- kind: Talk
+  properties:
+  - name: track
+  - name: start
+    direction: desc

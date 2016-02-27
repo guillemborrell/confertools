@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your event</title>
+</head>
+<body>
+<p><a href="/panel">Back to the panel</a></p>
+<h1>{{ event.name }}</h1>
+<ul>
+    {% for track in tracks %}
+    <li> <a href="/panel/track/{{ track.key.urlsafe() }}">{{ track.name }}</a></li>
+    {% endfor %}
+</ul>
+</body>
+</html>

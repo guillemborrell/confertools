@@ -10,5 +10,11 @@
       <p>Welcome {{ user.nickname() }}. <a href="{{ logout }}">Logout</a></p>
       {% endif %}
       <p>Europe/Madrid time is: <span id="time"></span></p>
+      <h2>Event list:</h2>
+      <ul>
+          {% for event in events %}
+          <li><a href="/event/{{ event.key.urlsafe() }}">{{ event.name }}</a></li>
+          {% endfor %}
+      </ul>
   </body>
 </html>

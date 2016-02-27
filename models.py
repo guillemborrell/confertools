@@ -18,12 +18,30 @@ class Event(ndb.Model):
         for event in cls.query(Event.owner == user).order(-cls.created):
             yield event
 
+    @classmethod
+    def last_events(cls):
+        for event in cls.query().order(-cls.created).fetch(10):
+            yield event
+
+    @classmethod
+    def tracks(cls):
+        eid = cls.key.id()
+
+        for track in Track.query(Track.event == ndb.Key(Event, eid)).order(-Track.created):
+            yield track
+
 
 class Track(ndb.Model):
     owner = ndb.UserProperty(required=True)
     event = ndb.KeyProperty(required=True, kind=Event)
     name = ndb.StringProperty(required=True)
     room = ndb.StringProperty(required=True)
+
+    @classmethod
+    def in_event(cls, event_key):
+        for track in cls.query(
+                Track.event == ndb.Key(urlsafe=event_key)):
+            yield track
 
 
 class Talk(ndb.Model):
@@ -35,6 +53,14 @@ class Talk(ndb.Model):
     end = ndb.DateTimeProperty(required=True)
     abstract = ndb.TextProperty()
     tags = ndb.StringProperty(repeated=True)
+    data = ndb.JsonProperty()
+
+    @classmethod
+    def in_track(cls, track_key):
+        for talk in cls.query(
+                        Talk.track == ndb.Key(urlsafe=track_key)
+                              ).order(-cls.start):
+            yield talk
 
 
 class Sponsor(ndb.Model):
