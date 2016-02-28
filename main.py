@@ -2,7 +2,7 @@ import json
 import pytz
 from flask import Flask, render_template, request, redirect
 from datetime import datetime, timedelta, date
-from datetools import date_to_dict
+from tools import date_to_dict
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from models import Event, Track, Talk
@@ -110,10 +110,29 @@ def public_talk(talk_key):
     return render_template('public_talk.html', talk=talk_)
 
 
+@app.route('/timing_data/<track_key>')
+def timing_data(track_key):
+    track_ = ndb.Key(urlsafe=track_key).get()
+    event_ = track_.event.get()
+    talks = Talk.in_track(track_.key.urlsafe())
+    try:
+        conference_time = datetime.now(pytz.timezone(event_.timezone))
+    except KeyError:
+        conference_time = datetime.utcnow()
+
+    js_data = {'localtime': date_to_dict(conference_time),
+               'something_else': 'other stuff'}
+
+    return json.dumps(js_data)
+
+
 @app.route('/timing/<track_key>')
 def timing(track_key):
     track_ = ndb.Key(urlsafe=track_key).get()
-    return render_template('timing.html', talk=track_)
+    event_ = track_.event.get()
+    return render_template('timing.html',
+                           event=event_,
+                           track=track_)
 
 
 @app.route('/panel/new_event', methods=('GET', 'POST'))

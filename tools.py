@@ -3,6 +3,15 @@ from datetime import datetime
 from models import Event, Track, Talk
 
 
+def date_to_dict(date):
+    return {'year': date.year,
+            'month': date.month,
+            'day': date.day,
+            'hour': date.hour,
+            'minute': date.minute,
+            'second': date.second}
+
+
 def process_event(event_file, user):
     event_data = json.loads(event_file)
     event_name = event_data['name']

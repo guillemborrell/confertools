@@ -2,8 +2,9 @@ function padDigits(number, digits) {
     return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
 }
 
-function startTimer(duration, display) {
-	var timer = duration;
+function startTimer(timing_data) {
+    var time_display = $('#time');
+	var timer = timing_data.localtime;
 	var hours = parseInt(timer.hour)
     var minutes = parseInt(timer.minute);
     var seconds = parseInt(timer.second);
@@ -25,16 +26,18 @@ function startTimer(duration, display) {
 	        if (seconds == 0){
 	            $("body").css("background-color", "red")
 	        }
-            display.text(hours + ":" + padDigits(minutes,2) + ":" + padDigits(seconds, 2));
+            time_display.text(hours + ":" + padDigits(minutes,2) + ":" + padDigits(seconds, 2));
         }
 	, 1000);
 }
 
 function initiateTimer(time) {
-    var display = $('#time');
-    startTimer(JSON.parse(time), display);
+    startTimer(JSON.parse(time));
 }
 
 jQuery(function ($) {
-	$.ajax({url: "/time/Europe/Madrid", success: initiateTimer })
+    var present_url = window.location.href;
+    var split_url = present_url.split("/");
+    var talk_key = split_url[split_url.length-1];
+	$.ajax({url: "/timing_data/" + talk_key, success: initiateTimer })
 });
