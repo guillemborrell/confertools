@@ -39,11 +39,11 @@ class Event(ndb.Model):
             yield event
 
     @classmethod
-    def tracks(cls):
+    def sessions(cls):
         eid = cls.key.id()
 
-        for track in Track.query(Track.event == ndb.Key(Event, eid)).order(-Track.created):
-            yield track
+        for session in Session.query(Session.event == ndb.Key(Event, eid)).order(-Session.created):
+            yield session
 
     def to_dict(self):
         return {
@@ -58,17 +58,18 @@ class Event(ndb.Model):
             }
 
 
-class Track(ndb.Model):
+class Session(ndb.Model):
     owner = ndb.UserProperty(required=True)
     event = ndb.KeyProperty(required=True, kind=Event)
     name = ndb.StringProperty(required=True)
+    track = ndb.StringProperty(required=True)
     room = ndb.StringProperty(required=True)
 
     @classmethod
     def in_event(cls, event_key):
-        for track in cls.query(
-                Track.event == ndb.Key(urlsafe=event_key)):
-            yield track
+        for session in cls.query(
+                Session.event == ndb.Key(urlsafe=event_key)):
+            yield session
 
     def to_dict(self):
         return {
@@ -79,7 +80,7 @@ class Track(ndb.Model):
 
 class Talk(ndb.Model):
     owner = ndb.UserProperty(required=True)
-    track = ndb.KeyProperty(required=True, kind=Track)
+    session = ndb.KeyProperty(required=True, kind=Session)
     title = ndb.StringProperty(required=True)
     authors = ndb.StringProperty(repeated=True)
     start = ndb.DateTimeProperty(required=True)
@@ -91,7 +92,7 @@ class Talk(ndb.Model):
     @classmethod
     def in_track(cls, track_key):
         for talk in cls.query(
-                        Talk.track == ndb.Key(urlsafe=track_key)
+                        Talk.session == ndb.Key(urlsafe=track_key)
                               ).order(-cls.start):
             yield talk
 
@@ -102,6 +103,7 @@ class Talk(ndb.Model):
             'start': datetime_to_dict(self.start),
             'end': datetime_to_dict(self.end),
         }
+
 
 class Sponsor(ndb.Model):
     owner = ndb.UserProperty(required=True)

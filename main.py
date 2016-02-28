@@ -5,7 +5,7 @@ from datetime import datetime, timedelta
 from tools import date_to_dict
 from google.appengine.api import users
 from google.appengine.ext import ndb
-from models import Event, Track, Talk
+from models import Event, Session, Talk
 from tools import process_event
 
 app = Flask(__name__)
@@ -49,7 +49,7 @@ def event(event_key):
         event_ = ndb.Key(urlsafe=event_key).get()
         return render_template('event.html',
                                event=event_,
-                               tracks=Track.in_event(event_key),
+                               tracks=Session.in_event(event_key),
                                user=user,
                                logout=users.create_logout_url('/')
                                )
@@ -62,16 +62,16 @@ def public_event(event_key):
     event_ = ndb.Key(urlsafe=event_key).get()
     return render_template('public_event.html',
                            event=event_,
-                           tracks=Track.in_event(event_key)
+                           tracks=Session.in_event(event_key)
                            )
 
 
-@app.route('/panel/track/<track_key>')
+@app.route('/panel/session/<track_key>')
 def track(track_key):
     user = users.get_current_user()
     if user:
         track_ = ndb.Key(urlsafe=track_key).get()
-        return render_template('track.html',
+        return render_template('session.html',
                                track=track_,
                                talks=Talk.in_track(track_key),
                                user=user,
@@ -81,7 +81,7 @@ def track(track_key):
         return render_template('page_not_found.html'), 404
 
 
-@app.route('/track/<track_key>')
+@app.route('/session/<track_key>')
 def public_track(track_key):
     track_ = ndb.Key(urlsafe=track_key).get()
     return render_template('public_track.html',
@@ -122,7 +122,7 @@ def timing_data(track_key):
 
     js_data = {'localtime': date_to_dict(conference_time),
                'event': event_.to_dict(),
-               'track': track_.to_dict(),
+               'session': track_.to_dict(),
                'talks': [t.to_dict() for t in talks]}
 
     return json.dumps(js_data)

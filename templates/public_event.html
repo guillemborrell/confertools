@@ -7,7 +7,7 @@
 <body>
 <h1>{{ event.name }}</h1>
 <ul>
-    {% for track in tracks %}
+    {% for track in sessions %}
     <li><a href="/track/{{ track.key.urlsafe() }}">{{ track.name }}</a></li>
     {% endfor %}
 </ul>

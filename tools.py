@@ -1,6 +1,6 @@
 import json
 from datetime import datetime
-from models import Event, Track, Talk
+from models import Event, Session, Talk
 
 
 def date_to_dict(date):
@@ -34,13 +34,13 @@ def process_event(event_file, user):
                )
     ev.put()
 
-    for track in event_data['tracks']:
+    for track in event_data['sessions']:
         track_name = track['name']
         track_room = track['room']
-        tr = Track(owner=user,
-                   name=track_name,
-                   room=track_room,
-                   event=ev.key)
+        tr = Session(owner=user,
+                     name=track_name,
+                     room=track_room,
+                     event=ev.key)
         tr.put()
 
         for talk in track['talks']:
