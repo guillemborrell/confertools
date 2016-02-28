@@ -3,6 +3,7 @@ function padDigits(number, digits) {
 }
 
 function startTimer(timing_data) {
+    console.log(timing_data)
     var time_display = $('#time');
 	var timer = timing_data.localtime;
 	var hours = parseInt(timer.hour)

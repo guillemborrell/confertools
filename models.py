@@ -1,6 +1,21 @@
 from google.appengine.ext import ndb
 
 
+def datetime_to_dict(date):
+    return {'year': date.year,
+            'month': date.month,
+            'day': date.day,
+            'hour': date.hour,
+            'minute': date.minute,
+            'second': date.second}
+
+
+def date_to_dict(date):
+    return {'year': date.year,
+            'month': date.month,
+            'day': date.day}
+
+
 class Event(ndb.Model):
     owner = ndb.UserProperty(required=True)
     name = ndb.StringProperty(required=True)
@@ -30,6 +45,18 @@ class Event(ndb.Model):
         for track in Track.query(Track.event == ndb.Key(Event, eid)).order(-Track.created):
             yield track
 
+    def to_dict(self):
+        return {
+            'name': self.name,
+            'created': datetime_to_dict(self.created),
+            'modified': datetime_to_dict(self.modified),
+            'place': self.place,
+            'date_from': date_to_dict(self.date_from),
+            'date_to': date_to_dict(self.date_to),
+            'timezone': self.timezone,
+            'data': self.data
+            }
+
 
 class Track(ndb.Model):
     owner = ndb.UserProperty(required=True)
@@ -42,6 +69,12 @@ class Track(ndb.Model):
         for track in cls.query(
                 Track.event == ndb.Key(urlsafe=event_key)):
             yield track
+
+    def to_dict(self):
+        return {
+            'name': self.name,
+            'room': self.room
+        }
 
 
 class Talk(ndb.Model):
@@ -62,6 +95,13 @@ class Talk(ndb.Model):
                               ).order(-cls.start):
             yield talk
 
+    def to_dict(self):
+        return {
+            'title': self.title,
+            'authors': self.authors,
+            'start': datetime_to_dict(self.start),
+            'end': datetime_to_dict(self.end),
+        }
 
 class Sponsor(ndb.Model):
     owner = ndb.UserProperty(required=True)

@@ -1,7 +1,7 @@
 import json
 import pytz
 from flask import Flask, render_template, request, redirect
-from datetime import datetime, timedelta, date
+from datetime import datetime, timedelta
 from tools import date_to_dict
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -121,7 +121,9 @@ def timing_data(track_key):
         conference_time = datetime.utcnow()
 
     js_data = {'localtime': date_to_dict(conference_time),
-               'something_else': 'other stuff'}
+               'event': event_.to_dict(),
+               'track': track_.to_dict(),
+               'talks': [t.to_dict() for t in talks]}
 
     return json.dumps(js_data)
 
