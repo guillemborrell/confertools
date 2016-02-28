@@ -1,4 +1,7 @@
 var timing_data;
+var clock_year;
+var clock_month;
+var clock_day;
 var clock_hours;
 var clock_minutes;
 var clock_seconds;
@@ -9,17 +12,17 @@ function padDigits(number, digits) {
 }
 
 function advance_clock(hours, minutes, seconds){
-    seconds = seconds - 1;
-    if (seconds < 0) {
-        minutes = minutes - 1;
-        seconds = 59;
+    seconds = seconds + 1;
+    if (seconds > 59) {
+        minutes = minutes + 1;
+        seconds = 0;
     }
-    if (minutes < 0) {
-        hours = hours - 1;
+    if (minutes > 59) {
         minutes = 0;
+        hours = hours + 1;
     }
-    if (hours < 0) {
-        hours = 1;
+    if (hours > 24) {
+        hours = 0;
     }
     if (seconds == 0){
         $("body").css("background-color", "red")
@@ -32,6 +35,13 @@ function second_wise(){
     clock_hours = ticks.hours;
     clock_minutes = ticks.minutes;
     clock_seconds = ticks.seconds;
+
+    // Now operate with times and update the talk.
+    for i in timing_data.talks{
+        var talk_start = new Date(talk.start.year,
+                                  talk.start.month,
+                                  talk.start.day)
+    }
     $('#time').text(
         clock_hours + ":" +
          padDigits(clock_minutes,2) + ":" +
