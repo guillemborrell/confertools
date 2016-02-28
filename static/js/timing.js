@@ -1,35 +1,53 @@
+var timing_data;
+var clock_hours;
+var clock_minutes;
+var clock_seconds;
+var time_display = $('#time');
+
 function padDigits(number, digits) {
     return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
 }
 
-function startTimer(timing_data) {
-    console.log(timing_data)
-    var time_display = $('#time');
-	var timer = timing_data.localtime;
-	var hours = parseInt(timer.hour)
-    var minutes = parseInt(timer.minute);
-    var seconds = parseInt(timer.second);
+function advance_clock(hours, minutes, seconds){
+    seconds = seconds - 1;
+    if (seconds < 0) {
+        minutes = minutes - 1;
+        seconds = 59;
+    }
+    if (minutes < 0) {
+        hours = hours - 1;
+        minutes = 0;
+    }
+    if (hours < 0) {
+        hours = 1;
+    }
+    if (seconds == 0){
+        $("body").css("background-color", "red")
+    }
 
-	setInterval(
-	    function () {
-	        seconds = seconds + 1;
-	        if (seconds > 59) {
-	            minutes = minutes + 1;
-	            seconds = 0;
-	        }
-	        if (minutes > 59) {
-	            minutes = 0;
-	            hours = hours + 1;
-	        }
-	        if (hours > 24) {
-	            hours = 0;
-	        }
-	        if (seconds == 0){
-	            $("body").css("background-color", "red")
-	        }
-            time_display.text(hours + ":" + padDigits(minutes,2) + ":" + padDigits(seconds, 2));
-        }
-	, 1000);
+    return {"hours": hours, "minutes": minutes, "seconds": seconds}
+}
+function second_wise(){
+    ticks = advance_clock(clock_hours, clock_minutes, clock_seconds);
+    clock_hours = ticks.hours;
+    clock_minutes = ticks.minutes;
+    clock_seconds = ticks.seconds;
+    $('#time').text(
+        clock_hours + ":" +
+         padDigits(clock_minutes,2) + ":" +
+          padDigits(clock_seconds, 2));
+}
+
+function startTimer(ajax_data) {
+    console.log(ajax_data);
+    $(document).prop('title', ajax_data.track.name);
+    timing_data = ajax_data;
+    var timer = timing_data.localtime;
+    clock_hours = parseInt(timer.hour)
+    clock_minutes = parseInt(timer.minute);
+    clock_seconds = parseInt(timer.second);
+
+	setInterval(second_wise, 1000);
 }
 
 function initiateTimer(time) {
