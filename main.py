@@ -7,6 +7,8 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 from models import Event, Session, Talk
 from tools import process_event
+from timeline import timeline_from_event
+
 
 app = Flask(__name__)
 
@@ -115,27 +117,20 @@ def public_talk(talk_key):
 def timing_data(session_key):
     session_ = ndb.Key(urlsafe=session_key).get()
     event_ = session_.event.get()
-    talks = Talk.in_session(session_.key.urlsafe())
-    try:
-        conference_time = datetime.now(pytz.timezone(event_.timezone))
-    except KeyError:
-        conference_time = datetime.utcnow()
-
-    js_data = {'localtime': date_to_dict(conference_time),
-               'event': event_.to_dict(),
-               'session': session_.to_dict(),
-               'talks': [t.to_dict() for t in talks]}
-
-    return json.dumps(js_data)
+    data = event_.data
+    timeline = timeline_from_event(data, session_.name)
+    print(timeline)
+    return json.dumps(timeline)
 
 
 @app.route('/timing/<session_key>')
 def timing(session_key):
     session_ = ndb.Key(urlsafe=session_key).get()
     event_ = session_.event.get()
+
     return render_template('timing.html',
-                           event=event_,
-                           session=session_)
+                           session=session_,
+                           event=event_)
 
 
 @app.route('/panel/new_event', methods=('GET', 'POST'))

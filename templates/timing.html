@@ -9,8 +9,9 @@
     <script src="/js/timing.js"></script>
   </head>
     <body>
-    <p><span id="event_name"></span>. <span id="track_name"></span>.</p>
+    <p>{{ event.name }}. {{ session.name }}.</p>
     <h1><span id="talk_name"></span></h1>
-      <p>{{ event.timezone }} time is: <span id="time"></span></p>
+    <h2><span id="talk_authors"></span></h2>
+    <p><span id="time"></span></p>
   </body>
 </html>

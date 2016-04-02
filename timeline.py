@@ -16,7 +16,15 @@ def timeline_from_event(event, session_name):
             for talk in session['talks']:
                 talk_start = localtime.localize(datetime.strptime(talk['start'],'%Y-%m-%d %H:%M'))
                 talk_end = localtime.localize(datetime.strptime(talk['end'],'%Y-%m-%d %H:%M'))
-            
+                if 'warning' not in talk:
+                    talk['warning'] = 5
+
+                if 'questions' not in talk:
+                    talk['questions'] = 5
+
+                if 'transition' not in talk:
+                    talk['transition'] = 5
+                    
                 boundaries.append(
                     {"title": talk['title'],
                      "authors": talk['authors'],
@@ -52,8 +60,8 @@ def timeline_from_event(event, session_name):
             status.append(
                 {'time':0,
                  'panel': 'black',
-                 'title': b['title'],
-                 'authors': b['authors'],
+                 'title': session_name,
+                 'authors': 'Starts in...',
                 }
             )
         for b in boundaries:

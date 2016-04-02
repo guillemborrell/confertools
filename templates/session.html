@@ -7,7 +7,8 @@
 <body>
 <h1>{{ session.name }}</h1>
 <p>In event <a href="/panel/event/{{ session.event.urlsafe() }}">
-    {{ session.event.get().name }}</a>
+    {{ session.event.get().name }}</a>,
+  <a href="/timing/{{ session.key.urlsafe() }}">timing</a>
 </p>
 <ul>
     {% for talk in talks %}

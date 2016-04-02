@@ -13,14 +13,14 @@
         {
           "title": "A test talk 1",
           "authors": ["Me author", "You author"],
-          "start" : "2016-02-26 12:30",
-          "end" : "2016-02-26 12:45"
+          "start" : "2016-04-03 22:30",
+          "end" : "2016-04-03 22:50"
         },
         {
           "title": "A test talk 2",
           "authors": ["Me author", "You author"],
-          "start" : "2016-02-26 12:50",
-          "end" : "2016-02-26 13:20"
+          "start" : "2016-04-03 22:50",
+          "end" : "2016-04-03 23:20"
         }
       ]}
   ]}
