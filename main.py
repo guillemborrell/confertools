@@ -47,9 +47,10 @@ def event(event_key):
     user = users.get_current_user()
     if user:
         event_ = ndb.Key(urlsafe=event_key).get()
+        sessions_ = Session.in_event(event_key)
         return render_template('event.html',
                                event=event_,
-                               tracks=Session.in_event(event_key),
+                               sessions=[s for s in sessions_],
                                user=user,
                                logout=users.create_logout_url('/')
                                )
@@ -62,18 +63,18 @@ def public_event(event_key):
     event_ = ndb.Key(urlsafe=event_key).get()
     return render_template('public_event.html',
                            event=event_,
-                           tracks=Session.in_event(event_key)
+                           sessions=Session.in_event(event_key)
                            )
 
 
-@app.route('/panel/session/<track_key>')
-def track(track_key):
+@app.route('/panel/session/<session_key>')
+def session(session_key):
     user = users.get_current_user()
     if user:
-        track_ = ndb.Key(urlsafe=track_key).get()
+        session_ = ndb.Key(urlsafe=session_key).get()
         return render_template('session.html',
-                               track=track_,
-                               talks=Talk.in_track(track_key),
+                               session=session_,
+                               talks=Talk.in_session(session_key),
                                user=user,
                                logout=users.create_logout_url('/')
                                )
@@ -81,12 +82,12 @@ def track(track_key):
         return render_template('page_not_found.html'), 404
 
 
-@app.route('/session/<track_key>')
-def public_track(track_key):
-    track_ = ndb.Key(urlsafe=track_key).get()
-    return render_template('public_track.html',
-                           track=track_,
-                           talks=Talk.in_track(track_key)
+@app.route('/session/<session_key>')
+def public_session(session_key):
+    session_ = ndb.Key(urlsafe=session_key).get()
+    return render_template('public_session.html',
+                           session=session_,
+                           talks=Talk.in_session(session_key)
                            )
 
 
@@ -110,11 +111,11 @@ def public_talk(talk_key):
     return render_template('public_talk.html', talk=talk_)
 
 
-@app.route('/timing_data/<track_key>')
-def timing_data(track_key):
-    track_ = ndb.Key(urlsafe=track_key).get()
-    event_ = track_.event.get()
-    talks = Talk.in_track(track_.key.urlsafe())
+@app.route('/timing_data/<session_key>')
+def timing_data(session_key):
+    session_ = ndb.Key(urlsafe=session_key).get()
+    event_ = session_.event.get()
+    talks = Talk.in_session(session_.key.urlsafe())
     try:
         conference_time = datetime.now(pytz.timezone(event_.timezone))
     except KeyError:
@@ -122,19 +123,19 @@ def timing_data(track_key):
 
     js_data = {'localtime': date_to_dict(conference_time),
                'event': event_.to_dict(),
-               'session': track_.to_dict(),
+               'session': session_.to_dict(),
                'talks': [t.to_dict() for t in talks]}
 
     return json.dumps(js_data)
 
 
-@app.route('/timing/<track_key>')
-def timing(track_key):
-    track_ = ndb.Key(urlsafe=track_key).get()
-    event_ = track_.event.get()
+@app.route('/timing/<session_key>')
+def timing(session_key):
+    session_ = ndb.Key(urlsafe=session_key).get()
+    event_ = session_.event.get()
     return render_template('timing.html',
                            event=event_,
-                           track=track_)
+                           session=session_)
 
 
 @app.route('/panel/new_event', methods=('GET', 'POST'))

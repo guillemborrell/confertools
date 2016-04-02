@@ -62,7 +62,6 @@ class Session(ndb.Model):
     owner = ndb.UserProperty(required=True)
     event = ndb.KeyProperty(required=True, kind=Event)
     name = ndb.StringProperty(required=True)
-    track = ndb.StringProperty(required=True)
     room = ndb.StringProperty(required=True)
 
     @classmethod
@@ -90,9 +89,9 @@ class Talk(ndb.Model):
     data = ndb.JsonProperty()
 
     @classmethod
-    def in_track(cls, track_key):
+    def in_session(cls, session_key):
         for talk in cls.query(
-                        Talk.session == ndb.Key(urlsafe=track_key)
+                        Talk.session == ndb.Key(urlsafe=session_key)
                               ).order(-cls.start):
             yield talk
 

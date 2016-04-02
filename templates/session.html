@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Your track</title>
+    <title>Your session</title>
 </head>
 <body>
-<h1>{{ track.name }}</h1>
-<p>In event <a href="/panel/event/{{ track.event.urlsafe() }}">
-    {{ track.event.get().name }}</a>
+<h1>{{ session.name }}</h1>
+<p>In event <a href="/panel/event/{{ session.event.urlsafe() }}">
+    {{ session.event.get().name }}</a>
 </p>
 <ul>
     {% for talk in talks %}

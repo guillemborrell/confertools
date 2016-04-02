@@ -8,9 +8,13 @@
 <p><a href="/panel">Back to the panel</a></p>
 <h1>{{ event.name }}</h1>
 <ul>
-    {% for track in sessions %}
-    <li> <a href="/panel/track/{{ track.key.urlsafe() }}">{{ track.name }}</a></li>
-    {% endfor %}
+  {% for session in sessions %}
+  <li>
+    <a href="/panel/session/{{ session.key.urlsafe() }}">
+      {{ session.name }}
+    </a>
+  </li>
+  {% endfor %}
 </ul>
 </body>
 </html>

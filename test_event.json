@@ -5,9 +5,9 @@
   "timezone": "Europe/Madrid",
   "description": "A test event",
   "place": "Somewhere",
-  "tracks": [
+  "sessions": [
     {
-      "name": "A track",
+      "name": "A session",
       "room": "Room 01",
       "talks": [
         {
@@ -23,4 +23,4 @@
           "end" : "2016-02-26 13:20"
         }
       ]}
- ]}
+  ]}

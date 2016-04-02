@@ -1,4 +1,5 @@
 import json
+import pytz
 from datetime import datetime
 from models import Event, Session, Talk
 
@@ -30,20 +31,21 @@ def process_event(event_file, user):
                date_from=event_date_from,
                date_to=event_date_to,
                timezone=event_timezone,
-               description=event_description
+               description=event_description,
+               data=event_data
                )
     ev.put()
 
-    for track in event_data['sessions']:
-        track_name = track['name']
-        track_room = track['room']
+    for session in event_data['sessions']:
+        session_name = session['name']
+        session_room = session['room']
         tr = Session(owner=user,
-                     name=track_name,
-                     room=track_room,
+                     name=session_name,
+                     room=session_room,
                      event=ev.key)
         tr.put()
 
-        for talk in track['talks']:
+        for talk in session['talks']:
             talk_title = talk['title']
             talk_authors = talk['authors']
             talk_start = datetime.strptime(talk['start'], '%Y-%m-%d %H:%M')
@@ -59,7 +61,7 @@ def process_event(event_file, user):
                 talk_abstract = ''
 
             tk = Talk(owner=user,
-                      track=tr.key,
+                      session=tr.key,
                       title=talk_title,
                       authors=talk_authors,
                       start=talk_start,
@@ -69,3 +71,5 @@ def process_event(event_file, user):
                       )
 
             tk.put()
+
+            
