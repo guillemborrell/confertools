@@ -1,8 +1,3 @@
-import sys
-import os
-
-sys.path.append(os.path.join(os.curdir, 'vendor'))
-
 import json
 import pytz
 from flask import Flask, render_template, request, redirect
