@@ -1,26 +1,151 @@
 {
-  "name": "Test Event",
-  "date_from": "2016-02-26",
-  "date_to": "2016-02-29",
-  "timezone": "Europe/Madrid",
-  "description": "A test event",
-  "place": "Somewhere",
-  "sessions": [
-    {
-      "name": "A session",
-      "room": "Room 01",
-      "talks": [
-        {
-          "title": "A test talk 1",
-          "authors": ["Me author", "You author"],
-          "start" : "2016-04-03 22:30",
-          "end" : "2016-04-03 22:50"
-        },
-        {
-          "title": "A test talk 2",
-          "authors": ["Me author", "You author"],
-          "start" : "2016-04-03 22:50",
-          "end" : "2016-04-03 23:20"
-        }
-      ]}
-  ]}
+    "name": "PyData Madrid",
+    "date_from": "2016-04-08",
+    "date_to": "2016-04-10",
+    "timezone": "Europe/Madrid",
+    "description": "PyData conferences bring together users and developers of data analysis tools to share ideas and learn from each other. The PyData community gathers to discuss how best to apply Python tools, as well as tools using R and Julia, to meet evolving challenges in data management, processing, analytics, and visualization.",
+    "place": "CI BBVA and Campus Madrid",
+    "sessions": [
+	{
+	    "name": "Workshops",
+	    "room": "CI BBVA",
+	    "talks": [
+		{
+		    "title": "Basic Python Packages for Science",
+		    "authors": ["Alejandro Sáez Mollejo", "Siro Moreno"],
+		    "start" : "2016-04-08 9:30",
+		    "end" : "2016-04-08 11:15"
+		},
+		{
+		    "title": "Coffee break",
+		    "authors": [""],
+		    "start" : "2016-04-08 11:15",
+		    "end" : "2016-04-08 11:45",
+		    "warning": 0,
+		    "questions": 5,
+		    "transition": 0
+		},		
+		{
+		    "title": "Pandas for beginners",
+		    "authors": ["Kiko Correoso"],
+		    "start" : "2016-04-08 11:45",
+		    "end" : "2016-04-08 13:30"
+		},
+		{
+		    "title": "Lunch break",
+		    "authors": [""],
+		    "start" : "2016-04-08 13:30",
+		    "end" : "2016-04-08 15:00",
+		    "warning": 0,
+		    "questions": 5,
+		    "transition": 0
+		},
+		{
+		    "title": "Python for distributed systems",
+		    "authors": ["Guillem Borrell"],
+		    "start" : "2016-04-08 15:00",
+		    "end" : "2016-04-08 16:45"
+		},
+		{
+		    "title": "Coffee break",
+		    "authors": [""],
+		    "start" : "2016-04-08 16:45",
+		    "end" : "2016-04-08 17:15",
+		    "warning": 0,
+		    "questions": 5,
+		    "transition": 0
+		},		
+		{
+		    "title": "Usando contenedores para Big Data",
+		    "authors": ["Francesc Alted"],
+		    "start" : "2016-04-08 17:15",
+		    "end" : "2016-04-08 19:00"
+		}
+	    ]},
+	{
+	    "name": "Conference, Saturday.",
+	    "room": "Campus Madrid",
+	    "talks": [
+		{
+		    "title": "Keynote. A hitchhiker's guide to Data Science",
+		    "authors": ["Christine Doig"],
+		    "start" : "2016-04-06 9:30",
+		    "end" : "2016-04-06 10:15"
+		},
+		{
+		    "title": "Understanding random forests",
+		    "authors": ["Marc García"],
+		    "start" : "2016-04-06 10:15",
+		    "end" : "2016-04-06 11:00"
+		},
+		{
+		    "title": "Coffee break",
+		    "authors": [""],
+		    "start" : "2016-04-06 11:00",
+		    "end" : "2016-04-06 11:30",
+		    "warning": 0,
+		    "questions": 5,
+		    "transition": 0
+		},		
+		{
+		    "title": "Embrace conda packages: the build system we always needed, but never deserved",
+		    "authors": ["Juan Luis Cano Rodríguez"],
+		    "start" : "2016-04-06 11:30",
+		    "end" : "2016-04-06 12:15"
+		},
+		{
+		    "title": "A Primer on Recommendation Systems",
+		    "authors": ["Manuel Garrido Pena"],
+		    "start" : "2016-04-06 12:15",
+		    "end" : "2016-04-06 13:00"
+		},
+		{
+		    "title": "Python tools for webscraping",
+		    "authors": ["Jose Manuel Ortega"],
+		    "start" : "2016-04-06 13:00",
+		    "end" : "2016-04-06 13:45"
+		},
+		{
+		    "title": "Lunch break",
+		    "authors": [""],
+		    "start" : "2016-04-06 13:45",
+		    "end" : "2016-04-06 15:30",
+		    "warning": 0,
+		    "questions": 5,
+		    "transition": 0
+		},
+		{
+		    "title": "The solution of inverse problems",
+		    "authors": ["Tomás Gómez Álvarez-Arenas"],
+		    "start" : "2016-04-06 15:30",
+		    "end" : "2016-04-06 16:15"
+		},
+		{
+		    "title": "Towards a full-stack python monitoring + analytics framework",
+		    "authors": ["Pablo Manuel García Corzo"],
+		    "start" : "2016-04-06 16:15",
+		    "end" : "2016-04-06 17:00"
+		},
+		{
+		    "title": "Coffee break",
+		    "authors": [""],
+		    "start" : "2016-04-06 17:00",
+		    "end" : "2016-04-06 17:30",
+		    "warning": 0,
+		    "questions": 5,
+		    "transition": 0
+		},		
+		{
+		    "title": "City atractiveness seen through Twitter",
+		    "authors": ["Antònia Tugores"],
+		    "start" : "2016-04-06 17:30",
+		    "end" : "2016-04-06 18:15"
+		},
+		{
+		    "title": "Lightning talks",
+		    "authors": ["Several authors"],
+		    "start" : "2016-04-06 18:15",
+		    "end" : "2016-04-06 19:00"
+		}
+	    ]}
+    ]}

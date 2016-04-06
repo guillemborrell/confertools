@@ -9,6 +9,8 @@ var clock_hours;
 var clock_minutes;
 var clock_seconds;
 var time_display = $('#time');
+var counter = 0;
+var time_step = 10;
 
 function padDigits(number, digits) {
     return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
@@ -24,14 +26,11 @@ function advance_clock(hours, minutes, seconds){
         minutes = 59;
         hours = hours - 1;
     }
-    if (seconds == 0){
-        
-    }
-
     return {"hours": hours, "minutes": minutes, "seconds": seconds}
 }
 function second_wise(){
     ticks = advance_clock(clock_hours, clock_minutes, clock_seconds);
+    counter = counter + 1;
     clock_hours = ticks.hours;
     clock_minutes = ticks.minutes;
     clock_seconds = ticks.seconds;
@@ -49,18 +48,24 @@ function second_wise(){
 		padDigits(clock_minutes,2) + ":" +
 		padDigits(clock_seconds, 2));	
     }
-    if (clock_hours == 0 && clock_minutes == 0 && clock_seconds == 0){
+    if (counter == timing_data[current_step+1].time){
+	console.log(timing_data[current_step+1].time)
 	current_step = current_step+1;
 	current = timing_data[current_step];
+	while (current.time == counter){
+	    current_step = current_step + 1;
+	    current = timing_data[current_step];
+	    console.log("Skipped zero-time step");
+	}
 	talk_title = current.title;
 	talk_authors = current.authors;
-	var seconds_to_next = Math.round(
-	    timing_data[current_step+1].time)-seconds_to_next;
+	var seconds_to_next = current.remaining;
 	clock_seconds = seconds_to_next % 60;
 	clock_minutes = (seconds_to_next-clock_seconds)/60%60;
 	clock_hours   = (seconds_to_next-clock_minutes*60-clock_seconds)/60/60;
+
 	$("body").css("background-color", timing_data[current_step].panel);
-	if (color == 'yellow' || color == 'green'){
+	if (timing_data[current_step].panel == 'yellow'){
 	    $("body").css("color", "black");
 	}
 	else{
@@ -74,7 +79,7 @@ function startTimer(ajax_data) {
     first = timing_data[current_step]
     talk_title = first.title;
     talk_authors = first.authors;
-    var seconds_to_next = Math.round(timing_data[current_step+1].time);
+    var seconds_to_next = Math.round(timing_data[current_step].remaining);
     clock_seconds = seconds_to_next % 60;
     clock_minutes = (seconds_to_next-clock_seconds)/60%60;
     clock_hours   = (seconds_to_next-clock_minutes*60-clock_seconds)/60/60
@@ -88,7 +93,7 @@ function startTimer(ajax_data) {
 	$("body").css("color", "white");
     }
     
-    setInterval(second_wise, 1000);
+    setInterval(second_wise, time_step);
 }
 
 function initiateTimer(time) {
@@ -96,7 +101,7 @@ function initiateTimer(time) {
     
     for (i in timer_data){
 	var t = timer_data[i];
-	console.log(t.title + ' ' + t.panel + ' ' + t.time)
+	console.log(t.title + ' ' + t.panel + ' ' + t.time + ' ' + t.remaining)
     }
     startTimer(timer_data);
 }
