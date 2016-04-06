@@ -1,8 +1,2 @@
-flask
-jinja2
-markupsafe
-itsdangerous.py
-werkzeug
-pytz
 .idea
 *.pyc
