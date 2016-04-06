@@ -68,10 +68,13 @@ def timeline_from_event(event, session_name):
         for b in boundaries:
             remaining_time = 60*(b['transition'])
             elapsed = b['start'] - 60*(b['transition'])
-            if remaining_time > elapsed > 0 and len(status) == 0:
-                remaining_time = elapsed
-
             if elapsed + remaining_time > 0:
+                if remaining_time > elapsed > 0 and len(status) == 0:
+                    remaining_time = elapsed
+
+                if elapsed < 0:
+                    remaining_time = remaining_time + elapsed
+                    
                 status.append(
                     {'time': elapsed,
                      'remaining': remaining_time,
@@ -83,10 +86,13 @@ def timeline_from_event(event, session_name):
             remaining_time = b['end'] - b['start'] - 60*b['transition']
             elapsed = b['start']
 
-            if remaining_time > elapsed > 0 and len(status) == 0:
-                remaining_time = elapsed
+            if b['end'] - 60*(b['warning']+b['questions']) > 0:
+                if remaining_time > elapsed > 0 and len(status) == 0:
+                    remaining_time = elapsed
 
-            if elapsed + remaining_time > 0:
+                if elapsed < 0:
+                    remaining_time = remaining_time + elapsed
+
                 status.append(
                     {'time': elapsed,
                      'remaining': remaining_time,
@@ -97,9 +103,13 @@ def timeline_from_event(event, session_name):
                 )
             remaining_time = 60*(b['warning']+b['questions'])
             elapsed = b['end'] - 60*(b['warning']+b['questions']+b['transition'])
-            if elapsed > 0:
+            if b['end'] - 60*(b['questions']) > 0:
                 if remaining_time > elapsed > 0 and len(status) == 0:
                     remaining_time = elapsed
+
+                if elapsed < 0:
+                    remaining_time = remaining_time + elapsed
+                    
                 status.append(
                     {'time': elapsed,
                      'remaining': remaining_time,
@@ -110,9 +120,13 @@ def timeline_from_event(event, session_name):
                 )
             remaining_time = 60*(b['questions']) 
             elapsed = b['end'] - 60*(b['questions'] + b['transition'])
-            if elapsed > 0:
+            if elapsed + remaining_time > 0:
                 if remaining_time > elapsed > 0 and len(status) == 0:
                     remaining_time = elapsed
+
+                if elapsed < 0:
+                    remaining_time = remaining_time + elapsed
+
                 status.append(
                     {'time': elapsed,
                      'remaining': remaining_time,
