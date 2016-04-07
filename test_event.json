@@ -66,80 +66,163 @@
 		{
 		    "title": "Keynote. A hitchhiker's guide to Data Science",
 		    "authors": ["Christine Doig"],
-		    "start" : "2016-04-08 9:30",
-		    "end" : "2016-04-08 10:15"
+		    "start" : "2016-04-09 9:30",
+		    "end" : "2016-04-09 10:15"
 		},
 		{
 		    "title": "Understanding random forests",
 		    "authors": ["Marc García"],
-		    "start" : "2016-04-08 10:15",
-		    "end" : "2016-04-08 11:00"
+		    "start" : "2016-04-09 10:15",
+		    "end" : "2016-04-09 11:00"
 		},
 		{
 		    "title": "Coffee break",
 		    "authors": [""],
-		    "start" : "2016-04-08 11:00",
-		    "end" : "2016-04-08 11:30",
+		    "start" : "2016-04-09 11:00",
+		    "end" : "2016-04-09 11:30",
 		    "warning": 1,
 		    "questions": 1
 		},		
 		{
 		    "title": "Embrace conda packages: the build system we always needed, but never deserved",
 		    "authors": ["Juan Luis Cano Rodríguez"],
-		    "start" : "2016-04-08 11:30",
-		    "end" : "2016-04-08 12:15"
+		    "start" : "2016-04-09 11:30",
+		    "end" : "2016-04-09 12:15"
 		},
 		{
 		    "title": "A Primer on Recommendation Systems",
 		    "authors": ["Manuel Garrido Pena"],
-		    "start" : "2016-04-08 12:15",
-		    "end" : "2016-04-08 13:00"
+		    "start" : "2016-04-09 12:15",
+		    "end" : "2016-04-09 13:00"
 		},
 		{
 		    "title": "Python tools for webscraping",
 		    "authors": ["Jose Manuel Ortega"],
-		    "start" : "2016-04-08 13:00",
-		    "end" : "2016-04-08 13:45"
+		    "start" : "2016-04-09 13:00",
+		    "end" : "2016-04-09 13:45"
 		},
 		{
 		    "title": "Lunch break",
 		    "authors": [""],
-		    "start" : "2016-04-08 13:45",
-		    "end" : "2016-04-08 15:30",
+		    "start" : "2016-04-09 13:45",
+		    "end" : "2016-04-09 15:30",
 		    "warning": 1,
 		    "questions": 1
 		},
 		{
 		    "title": "The solution of inverse problems",
 		    "authors": ["Tomás Gómez Álvarez-Arenas"],
-		    "start" : "2016-04-08 15:30",
-		    "end" : "2016-04-08 16:15"
+		    "start" : "2016-04-09 15:30",
+		    "end" : "2016-04-09 16:15"
 		},
 		{
 		    "title": "Towards a full-stack python monitoring + analytics framework",
 		    "authors": ["Pablo Manuel García Corzo"],
-		    "start" : "2016-04-08 16:15",
-		    "end" : "2016-04-08 17:00"
+		    "start" : "2016-04-09 16:15",
+		    "end" : "2016-04-09 17:00"
 		},
 		{
 		    "title": "Coffee break",
 		    "authors": [""],
-		    "start" : "2016-04-08 17:00",
-		    "end" : "2016-04-08 17:30",
+		    "start" : "2016-04-09 17:00",
+		    "end" : "2016-04-09 17:30",
 		    "warning": 1,
 		    "questions": 1
 		},		
 		{
 		    "title": "City atractiveness seen through Twitter",
 		    "authors": ["Antònia Tugores"],
-		    "start" : "2016-04-08 17:30",
-		    "end" : "2016-04-08 18:15"
+		    "start" : "2016-04-09 17:30",
+		    "end" : "2016-04-09 18:15"
 		},
 		{
 		    "title": "Lightning talks",
 		    "authors": ["Several authors"],
-		    "start" : "2016-04-08 18:15",
-		    "end" : "2016-04-08 19:00"
+		    "start" : "2016-04-09 18:15",
+		    "end" : "2016-04-09 19:00"
+		}
+	    ]},
+	{
+	    "name": "Conference, Sunday.",
+	    "room": "Campus Madrid",
+	    "talks": [
+		{
+		    "title": "Keynote. Handling Big Data on Modern Computers: A Developer's View",
+		    "authors": ["Francesc Alted"],
+		    "start" : "2016-04-10 9:30",
+		    "end" : "2016-04-10 10:15"
+		},
+		{
+		    "title": "Reinforcement Learning in Python",
+		    "authors": ["Nathan Epstein"],
+		    "start" : "2016-04-10 10:15",
+		    "end" : "2016-04-10 11:00"
+		},
+		{
+		    "title": "Coffee break",
+		    "authors": [""],
+		    "start" : "2016-04-10 11:00",
+		    "end" : "2016-04-10 11:30",
+		    "warning": 1,
+		    "questions": 1
+		},		
+		{
+		    "title": "The Future of NumPy Indexing",
+		    "authors": ["Jaime Fernández"],
+		    "start" : "2016-04-10 11:30",
+		    "end" : "2016-04-10 12:15"
+		},
+		{
+		    "title": "Woosh: a fast pure-Python search engine library",
+		    "authors": ["Claudia Guirao Fernández"],
+		    "start" : "2016-04-10 12:15",
+		    "end" : "2016-04-10 13:00"
+		},
+		{
+		    "title": "Python or developing a real-time automated trading platform",
+		    "authors": ["Miguel Sánchez de León Peque"],
+		    "start" : "2016-04-10 13:00",
+		    "end" : "2016-04-10 13:45"
+		},
+		{
+		    "title": "Lunch break",
+		    "authors": [""],
+		    "start" : "2016-04-10 13:45",
+		    "end" : "2016-04-10 15:30",
+		    "warning": 1,
+		    "questions": 1
+		},
+		{
+		    "title": "Modelling a text corpus using Deep Boltzmann Machines in Python",
+		    "authors": ["Ricardo Pio Monti"],
+		    "start" : "2016-04-10 15:30",
+		    "end" : "2016-04-10 16:15"
+		},
+		{
+		    "title": "Remove before flight: Analysis flight safety data with Python",
+		    "authors": ["Jesús Martos Carrizo, Alejandro Sáez Mollejo"],
+		    "start" : "2016-04-10 16:15",
+		    "end" : "2016-04-10 17:00"
+		},
+		{
+		    "title": "Coffee break",
+		    "authors": [""],
+		    "start" : "2016-04-10 17:00",
+		    "end" : "2016-04-10 17:30",
+		    "warning": 1,
+		    "questions": 1
+		},		
+		{
+		    "title": "An Architecture to Tweet Them All",
+		    "authors": ["Jesús Sánchez"],
+		    "start" : "2016-04-10 17:30",
+		    "end" : "2016-04-10 18:15"
+		},
+		{
+		    "title": "Closing",
+		    "authors": [""],
+		    "start" : "2016-04-10 18:15",
+		    "end" : "2016-04-10 19:00"
 		}
 	    ]}
     ]}

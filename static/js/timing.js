@@ -10,7 +10,7 @@ var clock_minutes;
 var clock_seconds;
 var time_display = $('#time');
 var counter = 0;
-var time_step = 10;
+var time_step = 1000;
 
 function padDigits(number, digits) {
     return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
