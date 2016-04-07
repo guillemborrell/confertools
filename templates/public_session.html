@@ -5,8 +5,8 @@
     <title>Track</title>
 </head>
 <body>
-<h1>{{ track.name }}</h1>
-<p><a href="/timing/{{ track.key.urlsafe() }}">Timing</a></p>
+<h1>{{ session.name }}</h1>
+<p><a href="/timing/{{ session.key.urlsafe() }}">Timing</a></p>
 <ul>
     {% for talk in talks %}
     <li>

@@ -72,16 +72,13 @@ def public_event(event_key):
 @app.route('/panel/session/<session_key>')
 def session(session_key):
     user = users.get_current_user()
-    if user:
-        session_ = ndb.Key(urlsafe=session_key).get()
-        return render_template('session.html',
-                               session=session_,
-                               talks=Talk.in_session(session_key),
-                               user=user,
-                               logout=users.create_logout_url('/')
-                               )
-    else:
-        return render_template('page_not_found.html'), 404
+    session_ = ndb.Key(urlsafe=session_key).get()
+    return render_template('session.html',
+                           session=session_,
+                           talks=Talk.in_session(session_key),
+                           user=user,
+                           logout=users.create_logout_url('/')
+    )
 
 
 @app.route('/session/<session_key>')
@@ -95,16 +92,12 @@ def public_session(session_key):
 
 @app.route('/panel/talk/<talk_key>')
 def talk(talk_key):
-    user = users.get_current_user()
-    if user:
-        talk_ = ndb.Key(urlsafe=talk_key).get()
-        return render_template('talk.html',
-                               talk=talk_,
-                               user=user,
-                               logout=users.create_logout_url('/')
-                               )
-    else:
-        return render_template('page_not_found.htm'), 404
+    talk_ = ndb.Key(urlsafe=talk_key).get()
+    return render_template('talk.html',
+                           talk=talk_,
+                           user=user,
+                           logout=users.create_logout_url('/')
+    )
 
 
 @app.route('/talk/<talk_key>')
