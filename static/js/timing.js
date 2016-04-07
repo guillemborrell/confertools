@@ -52,7 +52,7 @@ function second_wise(){
 	console.log(timing_data[current_step+1].time)
 	current_step = current_step+1;
 	current = timing_data[current_step];
-	while (current.time == counter){
+	while (current.duration == 0){
 	    current_step = current_step + 1;
 	    current = timing_data[current_step];
 	    console.log("Skipped zero-time step");
@@ -77,6 +77,11 @@ function second_wise(){
 function startTimer(ajax_data) {
     timing_data = ajax_data;
     first = timing_data[current_step]
+    while (first.duration == 0){
+	current_step = current_step + 1;
+	first = timing_data[current_step];
+	console.log("Skipped zero-time step");
+    }
     talk_title = first.title;
     talk_authors = first.authors;
     var seconds_to_next = Math.round(timing_data[current_step].remaining);
@@ -86,7 +91,7 @@ function startTimer(ajax_data) {
 
     var color = timing_data[current_step].panel
     $("body").css("background-color", color);
-    if (color == 'yellow' || color == 'green'){
+    if (color == 'yellow'){
 	$("body").css("color", "black");
     }
     else{
@@ -101,7 +106,7 @@ function initiateTimer(time) {
     
     for (i in timer_data){
 	var t = timer_data[i];
-	console.log(t.title + ' ' + t.panel + ' ' + t.time + ' ' + t.remaining)
+	console.log(t.title + ' ' + t.panel + ' ' + t.time + ' ' + t.remaining + ' ' + t.duration)
     }
     startTimer(timer_data);
 }

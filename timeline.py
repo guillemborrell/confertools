@@ -65,71 +65,71 @@ def timeline_from_event(event, session_name):
                  'authors': 'Starts in...',
                 }
             )
+        prevtrans = 0
         for b in boundaries:
-            remaining_time = 60*(b['transition'])
             elapsed = b['start'] - 60*(b['transition'])
-            if elapsed + remaining_time > 0:
-                if remaining_time > elapsed > 0 and len(status) == 0:
-                    remaining_time = elapsed
-
-                if elapsed < 0:
-                    remaining_time = remaining_time + elapsed
-                    
+            duration = 60*(b['transition'])
+            if elapsed < 0:
+                remaining_time = elapsed + duration
+            else:
+                remaining_time = duration
+            if elapsed + duration > 0:
                 status.append(
                     {'time': elapsed,
                      'remaining': remaining_time,
+                     'duration': duration,
                      'panel': 'black',
                      'title': b['title'],
                      'authors': b['authors']
                     }
                 )
-            remaining_time = b['end'] - b['start'] - 60*b['transition']
+                
+
             elapsed = b['start']
-
-            if b['end'] - 60*(b['warning']+b['questions']) > 0:
-                if remaining_time > elapsed > 0 and len(status) == 0:
-                    remaining_time = elapsed
-
-                if elapsed < 0:
-                    remaining_time = remaining_time + elapsed
-
+            duration = b['end'] - b['start'] - 60*(b['transition']+b['questions']+b['warning'])
+            if elapsed < 0:
+                remaining_time = elapsed + duration + 60*(b['questions']+b['warning'])
+            else:
+                remaining_time = duration + 60*(b['warning'] + b['questions'])
+            if elapsed + duration > 0:
                 status.append(
                     {'time': elapsed,
                      'remaining': remaining_time,
+                     'duration': duration,
                      'panel': 'green',
                      'title': b['title'],
                      'authors': b['authors'],
                     }
                 )
-            remaining_time = 60*(b['warning']+b['questions'])
+                
             elapsed = b['end'] - 60*(b['warning']+b['questions']+b['transition'])
-            if b['end'] - 60*(b['questions']) > 0:
-                if remaining_time > elapsed > 0 and len(status) == 0:
-                    remaining_time = elapsed
-
-                if elapsed < 0:
-                    remaining_time = remaining_time + elapsed
-                    
+            duration = 60*b['warning']
+            if elapsed < 0:
+                remaining_time = elapsed + duration + 60*b['questions']
+            else:
+                remaining_time = duration + 60*(b['questions'])
+            if elapsed + duration > 0:
                 status.append(
                     {'time': elapsed,
                      'remaining': remaining_time,
+                     'duration': duration,
                      'panel': 'yellow',
                      'title': b['title'],
                      'authors': b['authors']
                     }
                 )
-            remaining_time = 60*(b['questions']) 
+                
             elapsed = b['end'] - 60*(b['questions'] + b['transition'])
-            if elapsed + remaining_time > 0:
-                if remaining_time > elapsed > 0 and len(status) == 0:
-                    remaining_time = elapsed
-
-                if elapsed < 0:
-                    remaining_time = remaining_time + elapsed
-
+            duration = 60*b['questions']
+            if elapsed < 0:
+                remaining_time = elapsed + duration
+            else:
+                remaining_time = duration
+            if elapsed + duration > 0:
                 status.append(
                     {'time': elapsed,
                      'remaining': remaining_time,
+                     'duration': duration,
                      'panel': 'red',
                      'title': b['title'],
                      'authors': b['authors']
