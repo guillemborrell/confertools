@@ -112,6 +112,16 @@ function initiateTimer(time) {
 }
 
 jQuery(function ($) {
+    var body = document.documentElement;
+    if (body.requestFullscreen){
+	body.requestFullscreen();
+    } else if (body.msRequestFullscreen) {
+	body.msRequestFullscreen();
+    } else if (body.mozRequestFullScreen) {
+	body.mozRequestFullScreen();
+    } else if (body.webkitRequestFullscreen) {
+	body.webkitRequestFullscreen();
+    }
     var present_url = window.location.href;
     var split_url = present_url.split("/");
     var talk_key = split_url[split_url.length-1];
